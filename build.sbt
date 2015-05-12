@@ -32,6 +32,16 @@ lazy val docks = project.in(file(".")).
     resolvers += Resolver.sonatypeRepo("releases")
   )
 
+lazy val demo = project.
+  enablePlugins(ScalaJSPlugin).
+  dependsOn(docks).
+  settings(commonSettings:_*).
+  settings(
+    name := "angulate-docks-demo",
+    publish := {},
+    publishLocal := {},
+    scalacOptions ++= angulateDebugFlags
+  )
 
 //lazy val tests = project.
 //  dependsOn(root).
@@ -84,12 +94,12 @@ lazy val publishingSettings = Seq(
  
 lazy val angulateDebugFlags = Seq(
   // include some code for runtime debugging
-  //"runtimeLogging",
+  "runtimeLogging",
   //"ModuleMacros.debug",
   //"ControllerMacros.debug"
   //"DirectiveMacros.debug"
   //"ServiceMacros.debug"
-  //"ComponentMacros.debug"
+  "ComponentMacros.debug"
   //"HttpPromiseMacros.debug"
 ).map( f => s"-Xmacro-settings:biz.enef.angulate.$f" )
 
